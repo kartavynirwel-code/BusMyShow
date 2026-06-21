@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone') {
+            steps {
+                git 'https://github.com/kartavynirwel-code/BusMyShow.git'
+            }
+        }
+
+        stage('Build Backend') {
+            steps {
+                echo '🔧 Building Spring Boot Backend...'
+                dir('backend') {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Build Frontend') {
+            steps {
+                echo '🔧 Building React Frontend...'
+                dir('frontend') {
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Build Docker Images') {
+            steps {
+                echo '🐳 Building Docker Images...'
+                sh 'docker build -t backend:latest ./backend'
+                sh 'docker build -t frontend:latest ./frontend'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                echo '☸️ Deploying to Kubernetes...'
+                sh '''
+                    kubectl apply -f k8s/backend-deployment.yaml
+                    kubectl apply -f k8s/frontend-deployment.yaml
+                    kubectl apply -f k8s/services.yaml
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '🎉 Pipeline Completed Successfully!'
+        }
+
+        failure {
+            echo '❌ Pipeline Failed!'
+        }
+    }
+}
