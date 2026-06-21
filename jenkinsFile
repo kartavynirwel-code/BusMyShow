@@ -5,10 +5,10 @@ pipeline {
 
         stage('Clone') {
             steps {
-                git 'https://github.com/kartavynirwel-code/BusMyShow.git'
+                   git branch: 'main',
+                   url: 'https://github.com/kartavynirwel-code/BusMyShow.git'
             }
         }
-
         stage('Build Backend') {
             steps {
                 echo '🔧 Building Spring Boot Backend...'
