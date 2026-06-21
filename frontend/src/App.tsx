@@ -20,7 +20,7 @@ interface Booking {
   price: number;
 }
 
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE = 'http://192.168.49.2:30081/api';
 
 function App() {
   const [routes, setRoutes] = useState<BusRoute[]>([]);
