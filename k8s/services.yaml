@@ -20,7 +20,6 @@ spec:
   selector:
     app: myapp-backend
   ports:
-    - port: 8081
+    - port: 8080
       targetPort: 8081
-      nodePort: 30081
-  type: NodePort
+  type: ClusterIP

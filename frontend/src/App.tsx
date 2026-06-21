@@ -20,7 +20,7 @@ interface Booking {
   price: number;
 }
 
-const API_BASE = 'http://192.168.49.2:30081/api';
+const API_BASE = "/api";
 
 function App() {
   const [routes, setRoutes] = useState<BusRoute[]>([]);
@@ -82,7 +82,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>🚌 Bus Ticket Booker</h1>
+        <h1>🚌 BusMyShow-Bus Ticket Booker</h1>
         <p>Book your journey with ease</p>
       </header>
 
